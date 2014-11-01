@@ -25,7 +25,7 @@ class API::Words < Grape::API
         requires :engword, type: String, desc: "word1"
     end
     post :add do
-      w = Word.create(ruword:params[:ruword],engword:params[:engword],user:@user,learned:false,viewed:1)
+      w = Word.create(ruword:params[:ruword],engword:params[:engword],user:@user,learned:false,viewed:1,predict:-1)
     end
 
     desc "Пользователь отметил что запомнил|забыл слово"
