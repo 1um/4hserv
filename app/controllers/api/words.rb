@@ -23,9 +23,10 @@ class API::Words < Grape::API
         requires :id, type: Integer, desc: "Идентификатор пользователя. Брать в UserRegistrate"
         requires :ruword, type: String, desc: "слово1"
         requires :engword, type: String, desc: "word1"
+        requires :original, type: String, desc: "Оригинальное слово"
     end
     post :add do
-      w = Word.create(ruword:params[:ruword],engword:params[:engword],user:@user,learned:false,viewed:1,predict:-1)
+      w = Word.create(ruword:params[:ruword],engword:params[:engword],original:params[:original],user:@user,learned:false,viewed:1,predict:-1)
     end
 
     desc "Пользователь отметил что запомнил|забыл слово"
