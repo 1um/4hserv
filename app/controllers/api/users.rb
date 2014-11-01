@@ -1,8 +1,8 @@
-class API::User < Grape::API
+class API::Users < Grape::API
   resource :users do
     desc "Регистрация пользователя"
     get :registrate do
-      {id:'123'}
+      user = User.create()
     end
   end
 end
