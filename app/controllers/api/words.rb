@@ -1,3 +1,4 @@
+require 'csv'
 class API::Words < Grape::API
   resource :words do
 
@@ -26,7 +27,11 @@ class API::Words < Grape::API
         requires :original, type: String, desc: "Оригинальное слово"
     end
     post :add do
-      w = Word.create(ruword:params[:ruword],engword:params[:engword],original:params[:original],user:@user,learned:false,viewed:1,predict:-1)
+      elems = CSV.read("words.csv")
+      elem = elems.find{|e| e[0]==params['engword']}
+      freq = elem.nil? ? 0 : elem[1].to_i
+      w = Word.create(ruword:params[:ruword],engword:params[:engword],original:params[:original],user:@user,learned:false,viewed:1,predict:rand(200), frequancy: freq,
+       word_length:params[:engword].length, vowel:params[:engword].scan(/[aeioyu]/).count)
     end
 
     desc "Пользователь отметил что запомнил|забыл слово"
